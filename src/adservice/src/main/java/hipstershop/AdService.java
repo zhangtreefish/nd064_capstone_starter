@@ -73,7 +73,7 @@ public final class AdService {
             .addService(healthMgr.getHealthService())
             .build()
             .start();
-    logger.info("Ad Service started, listening on " + port);
+    logger.info("Ad Service started, listening on " + port); //seen in logs
     Runtime.getRuntime()
         .addShutdownHook(
             new Thread(
@@ -313,6 +313,21 @@ public final class AdService {
 
   /** Main launches the server from the command line. */
   public static void main(String[] args) throws IOException, InterruptedException {
+    //TODO: per https://www.swtestacademy.com/java-17-features/     
+	Object o = "I am a string as an object";
+	if (o instanceof String str) {
+		System.out.println(str);
+	}
+	// The following code is also valid:
+	if (o instanceof String str && !str.isEmpty()) {
+		System.out.println(str.toUpperCase());
+	}
+	Object obj = 123;
+	// The following code is also valid:
+	if (!(obj instanceof String str)) {
+		throw new RuntimeException("Please provide string!");
+	}
+
     // Registers all RPC views.
     /*
      [TODO:rghetia] replace registerAllViews with registerAllGrpcViews. registerAllGrpcViews

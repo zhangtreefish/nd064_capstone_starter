@@ -57,27 +57,6 @@ sudo firewall-cmd --zone=public --list-ports
  https://opencomputeproject.github.io/onie/overview/index.html
  ### service mesh 
  https://buoyant.io/service-mesh-manifesto/
- ### java 17
- `/usr/libexec/java_home -V` //to see all java
- java -version
- https://note.hommalab.io/posts/java/install-java17-and-maven/
- https://stackoverflow.com/questions/69875335/mac-how-to-install-java-17
-`brew install java`
- For the system Java wrappers to find this JDK, symlink it with
-  `sudo ln -sfn /usr/local/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk`
-
-openjdk is keg-only, which means it was not symlinked into /usr/local,
-because macOS provides similar software and installing this software in
-parallel can cause all kinds of trouble.
-
-If you need to have openjdk first in your PATH, run:
-  `echo 'export PATH="/usr/local/opt/openjdk/bin:$PATH"' >> ~/.zshrc`
-
-For compilers to find openjdk you may need to set:
-  `export CPPFLAGS="-I/usr/local/opt/openjdk/include"`
-
-  `java -version`
-//openjdk version "17.0.1" 2021-10-19
 
 `vagrant up`//helm not found. Is /usr/local/bin on your $PATH?`
 `ssh vagrant@127.0.0.1 -p 2222`
@@ -87,9 +66,7 @@ kubectl get po --all-namespaces // CrashLoopBackOff for vclb-traefik-xxxx
 kubectl -n  kube-system logs svclb-traefik-969kh -p  --all-containers //use updated k3s version to fix above
 `cd ../../vagrant/manifests`
 
-https://github.com/redhat-developer/vscode-java#project-jdks
-vi "$HOME/Library/Application Support/Code/User/settings.json"
-https://java.tutorials24x7.com/blog/how-to-install-java-17-on-mac
-`export JAVA_HOME=/usr/libexec/java_home ///usr/local/Cellar/openjdk/17.0.1_1/libexec/openjdk.jdk/Contents/Home` to .zshrc
-"/usr/libexec/java_home -V
-export JAVA_HOME=`/usr/libexec/java_home -v 17.0.1`"
+`kubectl apply -f /vagrant/kubernetes-manifests/dev/adservice.yaml`
+kubectl logs adservice-8546655886-25g7c //Jan 23, 2022 11:27:24 PM io.grpc.netty.shaded.io.grpc.netty.NettyServerTransport notifyTerminated
+INFO: Transport failed
+io.grpc.netty.shaded.io.netty.channel.unix.Errors$NativeIoException: readAddress(..) failed: Connection reset by peer
